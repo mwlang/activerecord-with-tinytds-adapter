@@ -44,4 +44,4 @@ You should use either :dataserver or :host and :port combo.  If :dataserver is p
       database: sample_development
       username: sa
       password: t0ps3cr3t
-  
+
