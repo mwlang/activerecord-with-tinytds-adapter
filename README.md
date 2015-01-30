@@ -6,7 +6,7 @@ Essentially, this implementation is a mashup of the original SQLServer adapter a
 
 ## Use Case
 
-Many asked, "why didn't you just port the Rails app to Rails 4?"  The simple answer: Too many Lines of Code and not enough time.  The application was hosted on Windows server and was unstable.  All of the developers intimately familiar with the project's code were long gone and we needed to help the client get to a Linux platform and fast.  We were unable to bring up a pristine Ruby 1.8.6 environment with all the older natively compiled libraries and gems.  However, we were able to bring up a pristine Ruby 1.8.7 environment to which all the gems used by the project would compile, except for one:  Ruby ODBC.  Too many things had changed with modern Linux OS and compiling and linking older C libraries was proving an insurmountable hurdle.
+Many asked, "why didn't you just port the Rails app to Rails 4?"  The simple answer: Too many Lines of Code and not enough time.  The application that inspired this effort was hosted on Windows server and was unstable.  All of the developers intimately familiar with the project's code were long gone and we needed to help the client get to a Linux platform and fast.  We were unable to bring up a pristine Ruby 1.8.6 environment with all the older natively compiled libraries and gems.  However, we were able to bring up a pristine Ruby 1.8.7 environment to which all the gems used by the project would compile, except for one:  Ruby ODBC.  Too many things had changed with modern Linux OS and compiling and linking older C libraries was proving an insurmountable hurdle.
 
 Implementing a tinytds driver for Rails 1.2 and porting Rails itself to Ruby 1.8.7 became the most economical and fastest route to stabilizing the client's system and that has led to this repo.  This project is not really something I intend to support and nurture as it is viewed as a crutch and stepping stone to get my clients to the next step.  However, this is not the first Rails 1.x project backed by SQL Server that I have had to rescue, so I'm making the code public to help others facing similar situations.  If you find it useful and fix any bugs, please submit a Pull Request along with supporting tests and I will merge.
 
@@ -36,4 +36,12 @@ The database.yml file supports the following settings:
 * :timeout (0 for no timeout)
 * :log_ddl (true or false)
 
-You should use either :dataserver or :host and :port combo.  If :dataserver is present, :host and :port are ignored. See TinyTDS's README for explanation and correct usage of the above settings.
+You should use either :dataserver or :host and :port combo.  If :dataserver is present, :host and :port are ignored. See TinyTDS's README for explanation and correct usage of the above settings.  An example database.yml file:
+
+    development:
+      adapter: tinytds
+      dataserver: ptest
+      database: sample_development
+      username: sa
+      password: t0ps3cr3t
+  
